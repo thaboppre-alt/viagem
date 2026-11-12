@@ -1,0 +1,581 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Buenos Aires da Thaís</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: cabeçalho curto + 4 abas com barra inferior fixa, pensado para o celular.
+   Paleta: violeta (misticismo), verde-erva (natureza), neutros azulados. */
+:root{
+  --bg:#F2F1F7; --surface:#FFFFFF; --fg:#1E1B2E; --muted:#66627C; --line:#DEDCE9;
+  --accent:#5B2A86; --accent-fg:#FFFFFF; --accent-soft:#EBE2F6;
+  --herb:#2A7653; --herb-soft:#DCF0E5; --warn:#9A4A06; --warn-soft:#FBEBD4;
+  --d0:#8E44AD; --d1:#D9730D; --d2:#1F9D55; --d3:#2878B5; --d4:#C0392B; --d5:#128C7E; --d6:#B8860B; --d7:#5D6D7E;
+  --font-display:"Bricolage Grotesque","Inter",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14121F; --surface:#1F1C30; --fg:#EDEBF6; --muted:#A39EBC; --line:#35314B;
+    --accent:#B997E8; --accent-fg:#1A1030; --accent-soft:#2D2346;
+    --herb:#72D1A0; --herb-soft:#1B3328; --warn:#F0B35C; --warn-soft:#3A2B14; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14121F; --surface:#1F1C30; --fg:#EDEBF6; --muted:#A39EBC; --line:#35314B;
+  --accent:#B997E8; --accent-fg:#1A1030; --accent-soft:#2D2346;
+  --herb:#72D1A0; --herb-soft:#1B3328; --warn:#F0B35C; --warn-soft:#3A2B14; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.5;
+  padding-block:0 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:640px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.15}
+header.top{padding:20px 0 14px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:30px;font-weight:700}
+.pill{font-size:13px;font-weight:600;background:var(--accent-soft);color:var(--accent);padding:5px 11px;border-radius:99px}
+h2{font-size:21px;font-weight:700;margin:6px 0 12px}
+h3{font-size:16px;font-weight:700}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button,.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 13px;font-size:14px;font-weight:500}
+.seg button[aria-pressed="true"],.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+label.f{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px}
+input.big{width:100%;font:inherit;font-size:24px;font-weight:600;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-variant-numeric:tabular-nums}
+input.txt{width:100%;font:inherit;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.swap{text-align:center;color:var(--muted);font-size:20px;line-height:1;padding:4px 0}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+td,th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}
+th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+td:last-child,th:last-child{text-align:right}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.notice{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:13px}
+.good{background:var(--herb-soft);color:var(--herb);border-radius:10px;padding:10px 12px;font-size:13px}
+a{color:var(--accent)}
+.days{display:flex;flex-wrap:wrap;gap:6px}
+.stop{display:grid;grid-template-columns:44px 1fr;gap:4px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.stop:last-child{border-bottom:0}
+.stop .tm{font-weight:600;font-variant-numeric:tabular-nums;font-size:14px}
+.stop .nm{font-weight:600}
+.stop .num{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--daycolor,var(--accent));color:#fff;font-size:11px;font-weight:700;margin-right:6px;vertical-align:1px}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--herb);background:var(--herb-soft);padding:1px 7px;border-radius:99px;margin-left:6px;vertical-align:1px}
+.addr{font-size:13px;color:var(--muted)}
+.trav{font-size:12px;color:var(--muted);font-style:italic}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:2px;font-size:13px}
+.mapbox{background:var(--bg);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);border:0;border-radius:10px;padding:10px 14px;font-weight:600;text-decoration:none;font-size:14px}
+.btn.alt{background:var(--accent-soft);color:var(--accent)}
+.ph{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.ph:last-child{border-bottom:0}
+.ph .pt{font-size:13px;color:var(--muted)}
+.ph .es{font-weight:600;font-size:16px}
+.ph .pr{font-size:12.5px;color:var(--herb);font-style:italic}
+.ph .acts{grid-row:1/4;grid-column:2;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.ph .acts button{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:600;color:var(--accent)}
+.nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.nums div{background:var(--bg);border-radius:8px;padding:6px 8px;font-size:13px}
+.nums b{display:block;font-size:15px}
+.overlay{position:fixed;inset:0;z-index:50;background:var(--accent);color:var(--accent-fg);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px;gap:14px}
+.overlay .big-es{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,9vw,56px);line-height:1.15;text-wrap:balance}
+.overlay .big-pt{font-size:16px;opacity:.85}
+.overlay button{background:var(--accent-fg);color:var(--accent);border:0;border-radius:10px;padding:10px 18px;font-weight:600}
+.prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:8px}
+.prog i{display:block;height:100%;background:var(--herb);width:0;transition:width .25s}
+.ck{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:start}
+.ck:last-child{border-bottom:0}
+.ck input{width:22px;height:22px;accent-color:var(--accent);margin:1px 0 0}
+.ck .tx{font-weight:500}
+.ck input:checked + div .tx{text-decoration:line-through;color:var(--muted)}
+.ck .dt{font-size:13px;color:var(--muted)}
+.ck .wh{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-left:6px}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+  display:flex;padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+nav.tabs .in{display:flex;width:100%;max-width:640px;margin:0 auto}
+nav.tabs button{flex:1;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:12px;font-weight:600;color:var(--muted);border-radius:10px}
+nav.tabs button svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+@media (max-width:420px){.grid2{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">21 a 28 de novembro de 2026</div>
+      <h1>Buenos Aires</h1>
+    </div>
+    <span class="pill" id="count"></span>
+  </header>
+
+  <main>
+    <!-- CÂMBIO -->
+    <section id="cambio" class="stack" hidden>
+      <h2>Câmbio peso e real</h2>
+      <div class="card stack">
+        <div class="seg" id="modeSeg" role="group" aria-label="Cotação usada">
+          <button type="button" data-m="avg" aria-pressed="true">Média do mês</button>
+          <button type="button" data-m="hoje" aria-pressed="false">Hoje</button>
+          <button type="button" data-m="custom" aria-pressed="false">Minha cotação</button>
+        </div>
+        <div id="customBox" hidden>
+          <label class="f" for="custom">1 real vale quantos pesos?</label>
+          <input class="txt" id="custom" inputmode="decimal" value="290">
+        </div>
+        <div>
+          <label class="f" for="ars">Pesos argentinos (ARS)</label>
+          <input class="big" id="ars" inputmode="decimal" placeholder="0" value="50.000" autocomplete="off">
+        </div>
+        <div class="swap" aria-hidden="true">⇅</div>
+        <div>
+          <label class="f" for="brl">Reais (BRL)</label>
+          <input class="big" id="brl" inputmode="decimal" placeholder="0" autocomplete="off">
+        </div>
+        <div class="small muted" id="rateLine"></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:6px">Valores prontos</h3>
+        <div class="grid2">
+          <table aria-label="Pesos para reais"><thead><tr><th>Pesos</th><th>Reais</th></tr></thead><tbody id="tA"></tbody></table>
+          <table aria-label="Reais para pesos"><thead><tr><th>Reais</th><th>Pesos</th></tr></thead><tbody id="tB"></tbody></table>
+        </div>
+      </div>
+
+      <div class="card stack small">
+        <div><b>Como a média foi feita.</b> Hoje (10/11/2026) 1 real vale cerca de 276,6 pesos. Há 30 dias valia cerca de 304,4 pesos. A média do mês é o ponto médio entre os dois (cerca de 289,9 pesos por real). Não consegui a série diária completa, então é uma estimativa. O peso vem se valorizando frente ao real neste período.</div>
+        <div class="notice">Cotação de mercado (média entre compra e venda). No cartão, na casa de câmbio ou no Pix internacional o valor muda: entram IOF, spread do banco e taxas. Confira o câmbio do seu cartão no app do banco e use "Minha cotação" para simular.</div>
+        <div class="muted">Fonte: currencyconvert.online (10/11/2026) e investing.com.</div>
+      </div>
+    </section>
+
+    <!-- ROTEIRO -->
+    <section id="roteiro" class="stack" hidden>
+      <h2>Roteiro por dia</h2>
+      <div class="days" id="dayChips" role="group" aria-label="Escolha o dia"></div>
+      <div class="card stack" id="dayCard"></div>
+      <div class="card">
+        <h3 style="margin-bottom:8px" id="mapTitle">Mapa</h3>
+        <div class="mapbox" id="map"></div>
+        <div class="legend" id="legend"></div>
+        <div class="small" id="pinInfo" style="margin-top:10px;min-height:40px"></div>
+        <div class="small muted" style="margin-top:6px">Mapa esquemático: as posições são aproximadas e não há ruas ao fundo. Use "Abrir no Google Maps" para o endereço exato.</div>
+      </div>
+      <div class="card">
+        <label class="f" for="hostel">Endereço do hostel (usado como ponto de partida na rota)</label>
+        <input class="txt" id="hostel" placeholder="Ex.: Honduras 5000, Palermo">
+      </div>
+    </section>
+
+    <!-- ESPANHOL -->
+    <section id="espanhol" class="stack" hidden>
+      <h2>Espanhol para a viagem</h2>
+      <div class="card stack">
+        <input class="txt" id="q" type="search" placeholder="Buscar frase (ex.: conta, táxi, vegetariana)" aria-label="Buscar frase">
+        <div class="small muted">Toque em <b>Mostrar</b> para exibir a frase em letras grandes. O Google Tradutor não pode ser aberto dentro deste app, mas o link abaixo abre em outra aba.</div>
+        <a class="btn alt" href="https://translate.google.com/?sl=pt&tl=es&op=translate" target="_blank" rel="noopener">Abrir Google Tradutor (pt → es)</a>
+      </div>
+      <div class="card small">
+        <b>Jeito argentino de falar.</b> "ll" e "y" soam como "sh" (calle = CÁ-she, pollo = PÓ-sho). Usam "vos" em vez de "tú" (¿podés?, ¿tenés?). "Che" é "ei, cara". Ônibus é <i>colectivo</i>, metrô é <i>subte</i>, mala é <i>valija</i>.
+      </div>
+      <div id="phrases" class="stack"></div>
+      <div class="card">
+        <h3 style="margin-bottom:8px">Números e preços</h3>
+        <div class="nums" id="nums"></div>
+      </div>
+    </section>
+
+    <!-- ANTES DE IR -->
+    <section id="antes" class="stack" hidden>
+      <h2>Antes de viajar</h2>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><b id="progTxt"></b><button type="button" class="chip" id="reset">Limpar marcações</button></div>
+        <div class="prog"><i id="progBar"></i></div>
+      </div>
+      <div id="lists" class="stack"></div>
+      <div class="small muted">As marcações ficam salvas neste aparelho e navegador.</div>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-label="Frase em letras grandes">
+  <div class="big-es" id="ovEs"></div>
+  <div class="big-pt" id="ovPt"></div>
+  <button type="button" id="ovClose">Fechar</button>
+</div>
+
+<nav class="tabs" aria-label="Seções">
+  <div class="in">
+    <button type="button" data-t="cambio"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg>Câmbio</button>
+    <button type="button" data-t="roteiro"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 1112 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>Roteiro</button>
+    <button type="button" data-t="espanhol"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4v-4H4z"/></svg>Espanhol</button>
+    <button type="button" data-t="antes"><svg viewBox="0 0 24 24"><path d="M5 7l2 2 3-3M5 15l2 2 3-3M13 8h6M13 16h6"/></svg>Antes de ir</button>
+  </div>
+</nav>
+
+<script>
+(function(){
+"use strict";
+const $=(s,r)=>(r||document).querySelector(s);
+const el=(t,p,...k)=>{const e=document.createElement(t);if(p)for(const[a,v]of Object.entries(p)){if(a==="class")e.className=v;else if(a==="text")e.textContent=v;else if(a.startsWith("on"))e.addEventListener(a.slice(2),v);else if(v===true)e.setAttribute(a,"");else if(v!==false&&v!=null)e.setAttribute(a,v);}for(const c of k.flat()){if(c==null||c===false)continue;e.append(c.nodeType?c:document.createTextNode(c));}return e;};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Abas ---------- */
+const TABS=["cambio","roteiro","espanhol","antes"];
+function showTab(t){
+  if(!TABS.includes(t))t="roteiro";
+  TABS.forEach(n=>{$("#"+n).hidden=n!==t});
+  document.querySelectorAll("nav.tabs button").forEach(b=>{if(b.dataset.t===t)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>{if(location.hash!=="#"+b.dataset.t)location.hash=b.dataset.t;else showTab(b.dataset.t)}));
+window.addEventListener("hashchange",()=>showTab(location.hash.slice(1)));
+
+/* ---------- Contagem ---------- */
+(function(){
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const start=new Date(2026,10,21),end=new Date(2026,10,28);
+  const d=Math.round((start-today)/864e5);let t;
+  if(d>1)t="Faltam "+d+" dias";else if(d===1)t="Embarque amanhã";
+  else if(today<=end)t="Dia "+(Math.round((today-start)/864e5)+1)+" de 8";else t="Viagem concluída";
+  $("#count").textContent=t;
+})();
+
+/* ---------- Câmbio ---------- */
+const R={hoje:0.003615,ini:0.003285};R.avg=(R.hoje+R.ini)/2;
+let mode=store.get("ba-mode","avg");if(!["avg","hoje","custom"].includes(mode))mode="avg";
+const customEl=$("#custom");customEl.value=store.get("ba-custom","290");
+function parse(s){s=String(s).trim().replace(/\s/g,"");if(!s)return NaN;
+  if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");
+  else if(/^\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,"");
+  return Number(s)}
+const nf=(n,min,max)=>n.toLocaleString("pt-BR",{minimumFractionDigits:min,maximumFractionDigits:max});
+function rate(){ // reais por 1 peso
+  if(mode==="hoje")return R.hoje;
+  if(mode==="custom"){const p=parse(customEl.value);return p>0?1/p:R.avg}
+  return R.avg}
+const arsEl=$("#ars"),brlEl=$("#brl");
+function fromArs(){const v=parse(arsEl.value);brlEl.value=isFinite(v)?nf(v*rate(),2,2):""}
+function fromBrl(){const v=parse(brlEl.value);arsEl.value=isFinite(v)?nf(v/rate(),0,2):""}
+function refreshRate(){
+  document.querySelectorAll("#modeSeg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.m===mode)));
+  $("#customBox").hidden=mode!=="custom";
+  const r=rate();
+  $("#rateLine").textContent="Usando: 1 real = "+nf(1/r,1,1)+" pesos  ·  1.000 pesos = R$ "+nf(1000*r,2,2);
+  const A=[1000,5000,10000,20000,50000,100000],B=[10,50,100,500,1000];
+  $("#tA").replaceChildren(...A.map(a=>el("tr",null,el("td",{text:nf(a,0,0)}),el("td",{text:"R$ "+nf(a*r,2,2)}))));
+  $("#tB").replaceChildren(...B.map(b=>el("tr",null,el("td",{text:"R$ "+nf(b,0,0)}),el("td",{text:nf(b/r,0,0)}))));
+  fromArs();
+}
+document.querySelectorAll("#modeSeg button").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.m;store.set("ba-mode",mode);refreshRate()}));
+customEl.addEventListener("input",()=>{store.set("ba-custom",customEl.value);refreshRate()});
+arsEl.addEventListener("input",fromArs);brlEl.addEventListener("input",fromBrl);
+refreshRate();
+
+/* ---------- Roteiro ---------- */
+const DCOL=["var(--d0)","var(--d1)","var(--d2)","var(--d3)","var(--d4)","var(--d5)","var(--d6)","var(--d7)"];
+const DAYS=[
+{chip:"Sáb 21",date:"2026-11-21",title:"Sábado 21 · Chegada e Palermo",note:"Chegada à tarde, dia leve perto do hostel.",stops:[
+ {t:"15:00",n:"Chegada e check-in no hostel",a:"Palermo Soho",k:"Hospedagem",v:"Do aeroporto: Uber ou táxi ~45 min (Ezeiza) ou ~20 min (Aeroparque)"},
+ {t:"17:00",n:"Magia Libros",a:"Thames 1619, Palermo",c:[-34.5887,-58.4300],k:"Esotérico",v:"A pé do hostel (confira a distância)"},
+ {t:"18:30",n:"Plaza Serrano e arredores",a:"Plaza Serrano, Palermo Soho",c:[-34.5879,-58.4325],k:"Passeio",v:"A pé ~10 min"},
+ {t:"20:30",n:"Jantar vegetariano no Sacro",a:"Costa Rica 6038, Palermo",c:[-34.5873,-58.4370],k:"Comida",v:"A pé ~10 min"}]},
+{chip:"Dom 22",date:"2026-11-22",title:"Domingo 22 · San Telmo e Plaza de Mayo",note:"A feira só acontece aos domingos. Cuidado com bolsa e celular na multidão. Caminito é muito turístico: vá de Uber e guarde bem o celular.",stops:[
+ {t:"10:00",n:"Feria de San Telmo",a:"Plaza Dorrego, San Telmo",c:[-34.6208,-58.3713],k:"Feira",v:"Uber ~25 min ou ônibus/subte ~50 min"},
+ {t:"13:00",n:"Mercado de San Telmo (almoço)",a:"Defensa 961, San Telmo",c:[-34.6212,-58.3724],k:"Comida",v:"A pé ~3 min"},
+ {t:"14:30",n:"Caminito (La Boca)",a:"Caminito, La Boca",c:[-34.6388,-58.3619],k:"Arte",v:"Uber ~15 min. Fique na rua Caminito e na Magallanes, sem andar pelos arredores"},
+ {t:"16:30",n:"Catedral Metropolitana de Buenos Aires",a:"Rivadavia 437, Plaza de Mayo",c:[-34.6082,-58.3733],k:"Cultura",v:"Uber ~20 min. Confira o horário de visita"},
+ {t:"17:15",n:"Plaza de Mayo e Casa Rosada",a:"Plaza de Mayo, Buenos Aires",c:[-34.6083,-58.3712],k:"Política",v:"A pé ~3 min"},
+ {t:"18:00",n:"Museo Casa Rosada (opcional)",a:"Hipólito Yrigoyen 219",c:[-34.6086,-58.3697],k:"Política",v:"A pé ~3 min. Confira se abre no domingo"}]},
+{chip:"Seg 23",date:"2026-11-23",title:"Segunda 23 · Natureza e arte em Palermo",note:"Feriado nacional: confirme horários antes de ir. O MALBA fecha às terças, por isso fica hoje.",stops:[
+ {t:"09:30",n:"Jardín Botánico Carlos Thays",a:"Av. Santa Fe 3951",c:[-34.5806,-58.4175],k:"Natureza",v:"Uber ~10 min ou a pé ~25 min"},
+ {t:"11:15",n:"Jardín Japonés",a:"Av. Casares 3450",c:[-34.5755,-58.4097],k:"Natureza",v:"A pé ~15 min"},
+ {t:"14:30",n:"MALBA",a:"Av. Figueroa Alcorta 3415",c:[-34.5772,-58.4034],k:"Arte",v:"A pé ~10 min. Almoce antes"},
+ {t:"16:30",n:"Bosques de Palermo e Rosedal",a:"Av. de la Infanta Isabel, Palermo",c:[-34.5686,-58.4172],k:"Natureza",v:"A pé ~15 min"},
+ {t:"20:00",n:"Jantar no Buenos Aires Verde",a:"Gorriti 5657, Palermo",c:[-34.5876,-58.4296],k:"Comida",v:"Uber ~15 min"}]},
+{chip:"Ter 24",date:"2026-11-24",title:"Terça 24 · Evita, lojas esotéricas e tango",note:"Show de tango à noite: reserve antes e peça menu vegetariano ao reservar.",stops:[
+ {t:"11:00",n:"Museo Evita",a:"Lafinur 2988",c:[-34.5845,-58.4108],k:"Cultura",v:"Uber ~10 min"},
+ {t:"13:45",n:"Sol Místico",a:"Jerónimo Salguero 2656",c:[-34.5860,-58.4090],k:"Esotérico",v:"A pé ~10 min. Almoço no caminho"},
+ {t:"15:00",n:"Lo Místico de Gaia",a:"Güemes 3877",c:[-34.5902,-58.4225],k:"Esotérico",v:"A pé ~20 min"},
+ {t:"16:00",n:"Zühul",a:"Av. Scalabrini Ortiz 2328",c:[-34.5895,-58.4240],k:"Esotérico",v:"A pé ~5 min"},
+ {t:"17:15",n:"Almacén Astral",a:"Av. Juan B. Justo 739",c:[-34.5895,-58.4300],k:"Esotérico",v:"A pé ~15 min"},
+ {t:"18:30",n:"Calle Florida (rua de pedestres)",a:"Calle Florida, Microcentro",c:[-34.5990,-58.3750],k:"Passeio",v:"Uber ~25 min de Palermo. Fica perto do Piazzolla"},
+ {t:"20:00",n:"Piazzolla Tango (show às 22h)",a:"Florida 165",c:[-34.6035,-58.3745],k:"Tango",v:"A pé, na própria Calle Florida. Confirme o horário da sessão"}]},
+{chip:"Qua 25",date:"2026-11-25",title:"Quarta 25 · Fitoterapia e Recoleta",note:"O horário do Museo de Farmacobotánica varia entre as fontes: agende antes. A loja de cristal precisa de confirmação (nome e horário). Se não der, passe lá na quinta.",stops:[
+ {t:"10:30",n:"Museo de Farmacobotánica (UBA)",a:"Junín 956",c:[-34.5993,-58.3967],k:"Fitoterapia",v:"Uber ~25 min ou subte + a pé"},
+ {t:"12:30",n:"Cementerio de la Recoleta e Basílica del Pilar",a:"Junín 1760",c:[-34.5879,-58.3931],k:"Cultura",v:"A pé ~15 min"},
+ {t:"14:30",n:"Centro Cultural Recoleta",a:"Junín 1930",c:[-34.5866,-58.3927],k:"Arte",v:"A pé ~3 min"},
+ {t:"15:30",n:"Museo Nacional de Bellas Artes",a:"Av. del Libertador 1473",c:[-34.5836,-58.3925],k:"Arte",v:"A pé ~8 min"},
+ {t:"17:45",n:"Loja de cristal",a:"Pres. José E. Uriburu 305",c:[-34.6010,-58.4000],k:"Esotérico",v:"Uber ~15 min. Confirmar abertura"},
+ {t:"19:15",n:"El Ateneo Grand Splendid (livraria)",a:"Av. Santa Fe 1860",c:[-34.5959,-58.3944],k:"Cultura",v:"Uber ~15 min. Confira o horário de funcionamento"}]},
+{chip:"Qui 26",date:"2026-11-26",title:"Quinta 26 · Costanera, Madres e Casino Flotante",note:"As Madres de Plaza de Mayo fazem a ronda toda quinta às 15h30. A Reserva Ecológica fecha às segundas, por isso fica hoje. O Casino Flotante está em situação legal incerta: confirme se abre.",stops:[
+ {t:"09:00",n:"Reserva Ecológica Costanera Sur",a:"Av. Tristán Achával Rodríguez 1550",c:[-34.6176,-58.3504],k:"Natureza",v:"Uber ~35 min do hostel"},
+ {t:"12:30",n:"Almoço em Puerto Madero",a:"Puerto Madero, Buenos Aires",c:[-34.6110,-58.3640],k:"Comida",v:"A pé ~20 min ou Uber ~5 min"},
+ {t:"13:30",n:"Museo Etnográfico Ambrosetti",a:"Moreno 350",c:[-34.6100,-58.3735],k:"Cultura",v:"A pé ~15 min"},
+ {t:"15:30",n:"Madres de Plaza de Mayo",a:"Pirámide de Mayo, Plaza de Mayo",c:[-34.6083,-58.3722],k:"Política",v:"A pé ~8 min. Chegue às 15h15"},
+ {t:"20:00",n:"Casino Flotante",a:"Av. Elvira Rawson de Dellepiane 1, Dársena Sur",c:[-34.6165,-58.3610],k:"Noite",v:"Uber ~10 min"}]},
+{chip:"Sex 27",date:"2026-11-27",title:"Sexta 27 · Tigre e o Delta",note:"Trem Línea Mitre, Retiro a Tigre, cerca de 50 min. Confirme na véspera se o ramal está funcionando. Leve repelente.",stops:[
+ {t:"08:30",n:"Trem Retiro → Tigre",a:"Estación Retiro, Buenos Aires",c:[-34.5915,-58.3743],k:"Transporte",v:"Uber até Retiro ~20 min. Compre/recarregue o SUBE antes"},
+ {t:"10:00",n:"Puerto de Frutos",a:"Sarmiento 160, Tigre, Buenos Aires",c:[-34.4138,-58.5810],k:"Natureza",v:"A pé ~15 min da estação"},
+ {t:"11:30",n:"Museo de Arte Tigre",a:"Paseo Victorica 972, Tigre",c:[-34.4160,-58.5875],k:"Arte",v:"A pé ~10 min. Confira o horário"},
+ {t:"13:30",n:"Almoço vegetariano em Tigre",a:"Tigre, Buenos Aires",k:"Comida",v:"Pesquise perto do porto"},
+ {t:"14:30",n:"Passeio de barco pelo Delta",a:"Estación Fluvial, Tigre",c:[-34.4235,-58.5790],k:"Natureza",v:"Escolha um passeio de 1h a 2h"},
+ {t:"17:30",n:"Trem de volta a Retiro",a:"Estación Tigre",k:"Transporte",v:"~50 min"}]},
+{chip:"Sáb 28",date:"2026-11-28",title:"Sábado 28 · Brechós e partida",note:"Voo à noite. Deixe a mala no guarda-volumes do hostel e saia para o aeroporto cerca de 4 horas antes do voo. Informe o horário do voo para eu ajustar.",stops:[
+ {t:"11:00",n:"Mercado de las Pulgas",a:"Av. Dorrego 1620",c:[-34.5770,-58.4510],k:"Brechó",v:"Uber ~15 min. Aberto de terça a domingo, 11h às 19h"},
+ {t:"13:00",n:"The Vintage Hole",a:"Uriarte 1857, Palermo",c:[-34.5890,-58.4290],k:"Brechó",v:"Uber ~15 min. Almoço por perto"},
+ {t:"14:30",n:"Jaleo",a:"Ángel J. Carranza 2201",c:[-34.5930,-58.4390],k:"Brechó",v:"A pé ~15 min"},
+ {t:"16:00",n:"Feira da Plaza Serrano",a:"Plaza Serrano, Palermo Soho",c:[-34.5879,-58.4325],k:"Brechó",v:"A pé ~12 min. A feira é nos fins de semana"},
+ {t:"18:00",n:"Buscar a mala e ir ao aeroporto",a:"Palermo Soho",k:"Transporte",v:"Saída ~4h antes do voo"}]}
+];
+const gmapSearch=a=>"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(/Buenos Aires|Tigre/.test(a)?(a.includes("Argentina")?a:a+", Argentina"):a+", Buenos Aires, Argentina");
+function dayRoute(day){
+  const st=day.stops.filter(s=>s.c);if(!st.length)return null;
+  const q=a=>encodeURIComponent(/Tigre|Buenos Aires/.test(a)?a+", Argentina":a+", Buenos Aires, Argentina");
+  const hostel=($("#hostel").value||"").trim();
+  const pts=st.slice(0,10);
+  const origin=hostel?encodeURIComponent(hostel+", Buenos Aires, Argentina"):q(pts[0].a);
+  const list=hostel?pts:pts.slice(1);
+  if(!list.length)return null;
+  const dest=q(list[list.length-1].a);
+  const way=list.slice(0,-1).slice(0,8).map(s=>q(s.a)).join("%7C");
+  return "https://www.google.com/maps/dir/?api=1&origin="+origin+"&destination="+dest+(way?"&waypoints="+way:"");
+}
+const hostelEl=$("#hostel");hostelEl.value=store.get("ba-hostel","");
+let sel=0;
+(function(){const iso=new Date();const s=iso.getFullYear()+"-"+String(iso.getMonth()+1).padStart(2,"0")+"-"+String(iso.getDate()).padStart(2,"0");const i=DAYS.findIndex(d=>d.date===s);if(i>=0)sel=i})();
+function renderChips(){
+  const box=$("#dayChips");box.replaceChildren(...DAYS.map((d,i)=>el("button",{type:"button",class:"chip","aria-pressed":String(sel===i),onclick:()=>{sel=i;render()}},d.chip)),
+    el("button",{type:"button",class:"chip","aria-pressed":String(sel==="all"),onclick:()=>{sel="all";render()}},"Mapa geral"));
+}
+function renderDay(){
+  const card=$("#dayCard");
+  if(sel==="all"){
+    card.replaceChildren(el("h3",{text:"Todos os lugares no mapa"}),el("div",{class:"small muted",text:"Cada cor é um dia. Toque em um ponto para ver o nome e abrir no Google Maps. Tigre (sexta) fica a cerca de 28 km ao norte e aparece só no mapa da sexta."}));
+    return;
+  }
+  const d=DAYS[sel];
+  const route=dayRoute(d);
+  card.replaceChildren(
+    el("h3",{text:d.title}),
+    d.note?el("div",{class:/Feriado|Confirme|confirm|Show|agende|fecha|incert/.test(d.note)?"notice":"good",text:d.note}):null,
+    el("div",null,...d.stops.map((s,i)=>el("div",{class:"stop",style:"--daycolor:"+DCOL[sel],id:"stop-"+i},
+      el("div",{class:"tm",text:s.t}),
+      el("div",null,
+        el("div",{class:"nm"},el("span",{class:"num",text:String(i+1)}),s.n,el("span",{class:"tag",text:s.k})),
+        el("div",{class:"addr",text:s.a}),
+        s.v?el("div",{class:"trav",text:"Deslocamento: "+s.v}):null,
+        el("div",{class:"links"},el("a",{href:gmapSearch(s.a),target:"_blank",rel:"noopener",text:"Abrir no Google Maps"}))
+      )))),
+    route?el("div",null,el("a",{class:"btn",href:route,target:"_blank",rel:"noopener",text:"Rota do dia no Google Maps"})):null,
+    el("div",{class:"small muted",text:"Tempos de deslocamento são estimativas. Horários de museus e lojas podem mudar: confirme na véspera."})
+  );
+}
+/* Mapa esquemático em SVG (sem tiles, para funcionar offline e sem bloqueios) */
+function pointsFor(){
+  if(sel==="all"){const out=[];DAYS.forEach((d,di)=>d.stops.forEach((s,i)=>{if(s.c&&s.c[0]>-34.5)return;if(s.c)out.push({s,di,i})}));return out}
+  return DAYS[sel].stops.map((s,i)=>s.c?{s,di:sel,i}:null).filter(Boolean);
+}
+function renderMap(){
+  const pts=pointsFor(),box=$("#map");
+  $("#mapTitle").textContent=sel==="all"?"Mapa geral (sem Tigre)":"Mapa do dia";
+  if(!pts.length){box.textContent="Sem pontos para mostrar.";return}
+  const W=360,H=300,P=30;
+  const lats=pts.map(p=>p.s.c[0]),lngs=pts.map(p=>p.s.c[1]);
+  const minLat=Math.min(...lats),maxLat=Math.max(...lats),minLng=Math.min(...lngs),maxLng=Math.max(...lngs);
+  const k=Math.cos(((minLat+maxLat)/2)*Math.PI/180);
+  const dx=Math.max((maxLng-minLng)*k,0.004),dy=Math.max(maxLat-minLat,0.004);
+  const sc=Math.min((W-2*P)/dx,(H-2*P)/dy);
+  const ox=(W-dx*sc)/2,oy=(H-dy*sc)/2;
+  const X=lng=>ox+(lng-minLng)*k*sc,Y=lat=>oy+(maxLat-lat)*sc;
+  const kmPerUnit=111.32; // km por grau de latitude
+  const kmWidth=(W-2*P)/sc*kmPerUnit;
+  const nice=[0.25,0.5,1,2,5,10,20].filter(v=>v<=kmWidth*0.6).pop()||0.25;
+  const barPx=nice/kmPerUnit*sc;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Mapa esquemático dos lugares"><rect width="'+W+'" height="'+H+'" fill="var(--bg)"/>';
+  for(let g=1;g<6;g++){s+='<line x1="'+g*W/6+'" y1="0" x2="'+g*W/6+'" y2="'+H+'" stroke="var(--line)" stroke-width="1" opacity=".6"/>';}
+  for(let g=1;g<5;g++){s+='<line x1="0" y1="'+g*H/5+'" x2="'+W+'" y2="'+g*H/5+'" stroke="var(--line)" stroke-width="1" opacity=".6"/>';}
+  if(sel!=="all"){
+    const path=pts.map(p=>X(p.s.c[1]).toFixed(1)+","+Y(p.s.c[0]).toFixed(1)).join(" ");
+    if(pts.length>1)s+='<polyline points="'+path+'" fill="none" stroke="'+DCOL[sel]+'" stroke-width="2" stroke-dasharray="5 4" opacity=".7"/>';
+  }
+  pts.forEach((p,idx)=>{
+    const x=X(p.s.c[1]).toFixed(1),y=Y(p.s.c[0]).toFixed(1),col=DCOL[p.di];
+    const key=p.di+"-"+p.i;
+    if(sel==="all"){
+      s+='<g class="pin" data-k="'+key+'" tabindex="0" role="button" aria-label="'+esc(p.s.n)+'" style="cursor:pointer"><circle cx="'+x+'" cy="'+y+'" r="11" fill="transparent"/><circle cx="'+x+'" cy="'+y+'" r="6.5" fill="'+col+'" stroke="var(--surface)" stroke-width="1.5"/></g>';
+    }else{
+      s+='<g class="pin" data-k="'+key+'" tabindex="0" role="button" aria-label="'+esc(p.s.n)+'" style="cursor:pointer"><circle cx="'+x+'" cy="'+y+'" r="12" fill="'+col+'" stroke="var(--surface)" stroke-width="2"/><text x="'+x+'" y="'+(+y+4)+'" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Inter,sans-serif">'+(p.i+1)+'</text></g>';
+    }
+  });
+  // norte e escala
+  s+='<g fill="var(--muted)" font-size="11" font-family="Inter,sans-serif"><path d="M'+(W-20)+' 34 l-5 12 h10z" fill="var(--muted)"/><text x="'+(W-20)+'" y="26" text-anchor="middle">N</text>';
+  s+='<line x1="12" y1="'+(H-12)+'" x2="'+(12+barPx).toFixed(1)+'" y2="'+(H-12)+'" stroke="var(--muted)" stroke-width="2"/><text x="'+(12+barPx+6).toFixed(1)+'" y="'+(H-8)+'">'+(nice<1?(nice*1000)+" m":nice+" km")+'</text></g></svg>';
+  box.innerHTML=s;
+  box.querySelectorAll(".pin").forEach(g=>{
+    const open=()=>{const [di,i]=g.dataset.k.split("-").map(Number);const st=DAYS[di].stops[i];
+      $("#pinInfo").replaceChildren(el("b",{text:(sel==="all"?DAYS[di].chip+" · ":(i+1)+". ")+st.n}),el("br"),el("span",{class:"muted",text:st.a+" · "}),el("a",{href:gmapSearch(st.a),target:"_blank",rel:"noopener",text:"Abrir no Google Maps"}));
+      if(sel!=="all"){const r=document.getElementById("stop-"+i);if(r){r.style.background="var(--accent-soft)";setTimeout(()=>{r.style.background=""},1400)}}};
+    g.addEventListener("click",open);g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}});
+  });
+  $("#pinInfo").textContent=sel==="all"?"Toque em um ponto para ver o lugar.":"Toque em um número para ver o endereço.";
+  $("#legend").replaceChildren(...(sel==="all"?DAYS.map((d,i)=>el("span",null,el("i",{style:"background:"+DCOL[i]}),d.chip)):[]));
+}
+function render(){renderChips();renderDay();renderMap()}
+hostelEl.addEventListener("input",()=>{store.set("ba-hostel",hostelEl.value);renderDay()});
+render();
+
+/* ---------- Espanhol ---------- */
+const PH=[
+{g:"Básico",p:[
+ ["Oi / Olá","Hola","Ô-la"],["Bom dia","Buen día","buém DI-a"],["Boa tarde","Buenas tardes","BUÉ-nas TAR-des"],["Boa noite","Buenas noches","BUÉ-nas NÓ-tches"],
+ ["Por favor","Por favor","por fa-VOR"],["Obrigada","Gracias","GRÁ-sias"],["De nada","De nada","de NÁ-da"],
+ ["Com licença / Desculpe","Permiso / Disculpe","per-MI-so / dis-KUL-pe"],["Não entendo","No entiendo","no en-tiÉN-do"],
+ ["Você fala português?","¿Hablás portugués?","a-BLÁS por-tu-GUÉS"],["Você fala inglês?","¿Hablás inglés?","a-BLÁS in-GLÉS"],
+ ["Pode falar mais devagar?","¿Podés hablar más despacio?","po-DÉS a-BLAR mas des-PÁ-sio"],
+ ["Sou brasileira","Soy brasileña","soi bra-si-LÉ-nha"],["Onde fica o banheiro?","¿Dónde está el baño?","DÓN-de es-TÁ el BÁ-nho"],
+ ["Quanto custa?","¿Cuánto sale?","KUÁN-to SÁ-le"],["Onde fica...?","¿Dónde queda...?","DÓN-de KÊ-da"]]},
+{g:"Restaurante (vegetariana)",p:[
+ ["Uma mesa para uma pessoa","Una mesa para una persona, por favor","U-na ME-sa PA-ra U-na per-SÓ-na"],
+ ["O cardápio, por favor","La carta, por favor","la KAR-ta"],
+ ["Sou vegetariana","Soy vegetariana","soi ve-je-ta-ri-Á-na"],
+ ["Vocês têm opções sem carne?","¿Tienen opciones sin carne?","tiÉ-nen op-siÓ-nes sin KAR-ne"],
+ ["Tem carne, frango, peixe ou presunto?","¿Esto tiene carne, pollo, pescado o jamón?","ES-to tiÉ-ne KAR-ne, PÓ-sho, pes-KÁ-do o ha-MÓN"],
+ ["Sem carne e sem caldo de carne","Sin carne ni caldo de carne","sin KAR-ne ni KAL-do de KAR-ne"],
+ ["Posso trocar a carne por legumes ou ovo?","¿Puedo cambiar la carne por verduras o huevo?","PUÉ-do kam-biAR la KAR-ne por ver-DU-ras o UÉ-vo"],
+ ["Eu como ovos e laticínios","Como huevos y lácteos","KÓ-mo UÉ-vos i LÁK-te-os"],
+ ["Água sem gás","Agua sin gas","Á-gua sin gas"],["Para levar","Para llevar","PA-ra she-VAR"],
+ ["Está delicioso","Está riquísimo","es-TÁ ri-KÍ-si-mo"],["A conta, por favor","La cuenta, por favor","la KUÉN-ta"],
+ ["A gorjeta está incluída?","¿La propina está incluida?","la pro-PI-na es-TÁ in-klu-I-da"],["Vocês aceitam cartão?","¿Aceptan tarjeta?","a-SEP-tan tar-JE-ta"]]},
+{g:"Táxi, ônibus e trem",p:[
+ ["Para este endereço, por favor","A esta dirección, por favor","a ES-ta di-rek-siÓN"],
+ ["Pode ligar o taxímetro?","¿Puede usar el taxímetro?","PUÉ-de u-SAR el tak-SÍ-me-tro"],
+ ["Quanto tempo leva?","¿Cuánto tarda?","KUÁN-to TAR-da"],["Pare aqui, por favor","Pará acá, por favor","pa-RÁ a-KÁ"],
+ ["Vou descer aqui","Me bajo acá","me BÁ-jo a-KÁ"],["Você tem troco?","¿Tenés cambio?","te-NÉS KAM-bio"],
+ ["Este ônibus vai para...?","¿Este colectivo va a...?","ES-te ko-lek-TI-vo ba a"],
+ ["Onde compro o cartão SUBE?","¿Dónde compro la SUBE?","DÓN-de KOM-pro la SU-be"],
+ ["Qual a estação de metrô mais perto?","¿Cuál es la estación de subte más cercana?","kuál es la es-ta-siÓN de SUB-te mas ser-KÁ-na"],
+ ["Este trem vai para Tigre?","¿Este tren va a Tigre?","ES-te tren ba a TI-gre"],["Qual plataforma?","¿Qué andén?","ke an-DÉN"],
+ ["Uma passagem para Tigre, ida e volta","Un boleto a Tigre, ida y vuelta","un bo-LÉ-to a TI-gre I-da i BUEL-ta"],
+ ["Pode me chamar um táxi?","¿Me puede llamar un taxi?","me PUÉ-de sha-MAR un TAK-si"]]},
+{g:"Compras, brechó e ervas",p:[
+ ["Quanto é isto?","¿Cuánto es esto?","KUÁN-to es ES-to"],["Posso provar?","¿Me lo puedo probar?","me lo PUÉ-do pro-BAR"],
+ ["Tem outro tamanho?","¿Tenés otro talle?","te-NÉS Ó-tro TÁ-she"],["Tem desconto?","¿Me hacés un descuento?","me a-SÉS un des-KUÉN-to"],
+ ["Vou pensar","Lo voy a pensar","lo boi a pen-SAR"],["Pago em dinheiro","Pago en efectivo","PÁ-go en e-fek-TI-vo"],
+ ["Vocês têm ervas medicinais?","¿Tienen hierbas medicinales?","tiÉ-nen IER-bas me-di-si-NÁ-les"],
+ ["Para que serve esta erva?","¿Para qué sirve esta hierba?","PA-ra ke SIR-be ES-ta IER-ba"],
+ ["Vocês têm quartzo ou cristais?","¿Tienen cuarzos o cristales?","tiÉ-nen KUAR-sos o kris-TÁ-les"],
+ ["Vocês têm baralho de tarô?","¿Tienen mazos de tarot?","tiÉ-nen MÁ-sos de ta-RÓ"]]},
+{g:"Museus e passeios",p:[
+ ["Uma entrada, por favor","Una entrada, por favor","U-na en-TRÁ-da"],["Tem desconto para estudante?","¿Hay descuento para estudiantes?","ai des-KUÉN-to PA-ra es-tu-diÁN-tes"],
+ ["Posso tirar fotos?","¿Se pueden sacar fotos?","se PUÉ-den sa-KAR FÓ-tos"],["Até que horas está aberto?","¿Hasta qué hora está abierto?","ÁS-ta ke Ó-ra es-TÁ a-biÉR-to"],
+ ["Tem visita guiada?","¿Hay visita guiada?","ai bi-SI-ta gi-Á-da"],["Qual o horário do show?","¿A qué hora es el show?","a ke Ó-ra es el SHOU"],
+ ["Quero reservar uma mesa com menu vegetariano","Quiero reservar con menú vegetariano","kiÉ-ro re-ser-VAR kon me-NÚ ve-je-ta-ri-Á-no"]]},
+{g:"Hostel",p:[
+ ["Posso deixar minha mala aqui?","¿Puedo dejar mi valija acá?","PUÉ-do de-JAR mi ba-LI-ja a-KÁ"],
+ ["Qual é a senha do wi-fi?","¿Cuál es la contraseña del wifi?","kuál es la kon-tra-SÉ-nha del UI-fi"],
+ ["Que horas é o check-out?","¿A qué hora es el check-out?","a ke Ó-ra es el tchek AUT"]]},
+{g:"Emergência e saúde",p:[
+ ["Preciso de ajuda","Necesito ayuda","ne-se-SI-to a-SHU-da"],["Preciso de um médico","Necesito un médico","ne-se-SI-to un ME-di-ko"],
+ ["Fui roubada","Me robaron","me ro-BÁ-ron"],["Perdi meus documentos","Perdí mis documentos","per-DI mis do-ku-MEN-tos"],
+ ["Chame a polícia","Llamen a la policía","SHÁ-men a la po-li-SI-a"],["Sou alérgica a...","Soy alérgica a...","soi a-LÉR-ji-ka a"],
+ ["Onde tem uma farmácia?","¿Dónde hay una farmacia?","DÓN-de ai U-na far-MÁ-sia"],
+ ["Emergência na Argentina: 911. Ambulância em Buenos Aires: 107 (SAME).","911 · 107","novecientos once"]]}
+];
+const NUMS=[["1","uno"],["2","dos"],["3","tres"],["4","cuatro"],["5","cinco"],["6","seis"],["7","siete"],["8","ocho"],["9","nueve"],["10","diez"],["20","veinte"],["50","cincuenta"],["100","cien"],["500","quinientos"],["1.000","mil"],["10.000","diez mil"],["100.000","cien mil"]];
+$("#nums").replaceChildren(...NUMS.map(n=>el("div",null,el("b",{text:n[0]}),n[1])));
+const canSpeak="speechSynthesis" in window&&"SpeechSynthesisUtterance" in window;
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang="es-AR";const vs=speechSynthesis.getVoices();const v=vs.find(v=>/^es[-_]AR/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+const ov=$("#overlay");
+function showBig(es,pt){$("#ovEs").textContent=es;$("#ovPt").textContent=pt;ov.hidden=false}
+$("#ovClose").addEventListener("click",()=>{ov.hidden=true});
+ov.addEventListener("click",e=>{if(e.target===ov)ov.hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")ov.hidden=true});
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function renderPhrases(){
+  const q=norm($("#q").value.trim());const out=[];
+  PH.forEach(sec=>{
+    const rows=sec.p.filter(r=>!q||norm(r.join(" ")).includes(q));
+    if(!rows.length)return;
+    out.push(el("div",{class:"card"},el("h3",{text:sec.g}),el("div",null,...rows.map(r=>el("div",{class:"ph"},
+      el("div",{class:"pt",text:r[0]}),
+      el("div",{class:"es",text:r[1]}),
+      el("div",{class:"pr",text:r[2]}),
+      el("div",{class:"acts"},el("button",{type:"button",onclick:()=>showBig(r[1],r[0])},"Mostrar"),canSpeak?el("button",{type:"button",onclick:()=>speak(r[1])},"Ouvir"):null)
+    )))));
+  });
+  $("#phrases").replaceChildren(...(out.length?out:[el("div",{class:"card muted",text:"Nenhuma frase encontrada. Tente outra palavra."})]));
+}
+$("#q").addEventListener("input",renderPhrases);
+renderPhrases();
+
+/* ---------- Antes de ir ---------- */
+const CK=[
+{g:"Documentos",i:[
+ ["doc1","RG em bom estado (foto legível) ou passaporte válido","Esta semana","Confira o estado do RG. Companhias aéreas e a imigração podem recusar documento muito danificado. CNH, CPF e certidões não valem para entrar."],
+ ["doc2","Seguro-viagem com cobertura médica e hospitalar","Esta semana","A Argentina passou a esperar o comprovante de seguro. Leve a apólice baixada no celular e impressa."],
+ ["doc3","Passagem de volta e reserva do hostel salvas offline","Esta semana","Print ou PDF. A imigração pode pedir."],
+ ["doc4","Comprovante de recursos (limite do cartão ou saldo)","3 dias antes","Recomendado, a imigração argentina tem pedido com mais frequência."],
+ ["doc5","Fotos dos documentos na nuvem e enviadas para alguém de confiança","3 dias antes",""]]},
+{g:"Dinheiro",i:[
+ ["din1","Avisar o banco e liberar o cartão para uso internacional","Esta semana",""],
+ ["din2","Conferir o câmbio e o IOF do cartão no app do banco","Esta semana","Compare com a cotação da aba Câmbio."],
+ ["din3","Levar uma reserva em dinheiro em notas novas","3 dias antes","Compare onde trocar e evite trocar no aeroporto. Leve também um cartão reserva."],
+ ["din4","Separar pesos para o primeiro dia (táxi, lanche, SUBE)","Em Buenos Aires",""]]},
+{g:"Saúde",i:[
+ ["sau1","Remédios de uso contínuo com receita","3 dias antes",""],
+ ["sau2","Kit básico (analgésico, antialérgico, band-aid, protetor solar, repelente)","3 dias antes","Repelente vale para o Delta, em Tigre."],
+ ["sau3","Nenhuma vacina é exigida para entrar","Informativo","Segundo as fontes consultadas, não há exigência de certificado de febre amarela."]]},
+{g:"Celular e apps",i:[
+ ["cel1","Chip internacional, eSIM ou plano de roaming","Esta semana",""],
+ ["cel2","Baixar o mapa de Buenos Aires offline no Google Maps","3 dias antes",""],
+ ["cel3","Baixar o espanhol offline no Google Tradutor","3 dias antes","Também vale usar a aba Espanhol deste app."],
+ ["cel4","Salvar o link deste app na tela inicial","Véspera",""],
+ ["cel5","Carregador, cabo e power bank","Véspera",""]]},
+{g:"Reservas e confirmações",i:[
+ ["res1","Agendar a visita ao Museo de Farmacobotánica (quarta 25)","Esta semana","Os horários variam entre as fontes."],
+ ["res2","Reservar o show de tango e pedir menu vegetariano (terça 24)","Esta semana","Piazzolla Tango ou outra casa. Confirme a sessão."],
+ ["res3","Descobrir o nome e o horário da loja de cristal (Uriburu 305)","Esta semana","Se não abrir na quarta, passe na quinta."],
+ ["res4","Confirmar horários dos museus no feriado de segunda 23","Véspera","MALBA, Jardín Botánico e Jardín Japonés."],
+ ["res5","Confirmar se o Casino Flotante está funcionando (quinta 26)","Véspera","A situação legal é incerta."],
+ ["res6","Ver se o trem Retiro → Tigre está operando (sexta 27)","Quinta à noite",""],
+ ["res7","Combinar guarda-volumes e check-out do hostel no sábado 28","Esta semana","O voo é à noite."],
+ ["res8","Combinar o transporte do aeroporto ao hostel e a volta","Esta semana","Informe o horário do voo e do pouso."]]},
+{g:"Mala",i:[
+ ["mal1","Adaptador de tomada (a Argentina usa tipo I e C, 220 V)","3 dias antes",""],
+ ["mal2","Roupa para 15 a 25 °C, casaco leve e guarda-chuva compacto","Véspera","Fim de novembro é primavera e pode chover."],
+ ["mal3","Calçado confortável para caminhar muito","Véspera","As ruas de San Telmo têm paralelepípedo."],
+ ["mal4","Bolsa antifurto e garrafinha de água","Véspera",""],
+ ["mal5","Espaço na mala para brechós e compras esotéricas","Véspera",""]]},
+{g:"Deixar combinado",i:[
+ ["com1","Compartilhar o roteiro e o endereço do hostel com alguém","Véspera",""],
+ ["com2","Anotar contatos de emergência e o número do seguro","Véspera","Emergência na Argentina: 911. Ambulância em Buenos Aires: 107."]]}
+];
+let done=store.get("ba-check",{});if(typeof done!=="object"||!done)done={};
+const total=CK.reduce((n,g)=>n+g.i.length,0);
+function prog(){const n=CK.reduce((c,g)=>c+g.i.filter(x=>done[x[0]]).length,0);$("#progTxt").textContent=n+" de "+total+" itens";$("#progBar").style.width=(n/total*100)+"%"}
+function renderChecks(){
+  $("#lists").replaceChildren(...CK.map(g=>el("div",{class:"card"},el("h3",{text:g.g}),el("div",null,...g.i.map(x=>{
+    const cb=el("input",{type:"checkbox",id:"ck-"+x[0]});cb.checked=!!done[x[0]];
+    cb.addEventListener("change",()=>{if(cb.checked)done[x[0]]=1;else delete done[x[0]];store.set("ba-check",done);prog()});
+    return el("label",{class:"ck",for:"ck-"+x[0]},cb,el("div",null,el("div",null,el("span",{class:"tx",text:x[1]}),el("span",{class:"wh",text:x[2]})),x[3]?el("div",{class:"dt",text:x[3]}):null));
+  })))));
+  prog();
+}
+$("#reset").addEventListener("click",()=>{done={};store.set("ba-check",done);renderChecks()});
+renderChecks();
+
+showTab(location.hash.slice(1)||"roteiro");
+})();
+</script>
+</body></html>
